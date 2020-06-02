@@ -1,34 +1,34 @@
-#!/bin/python3
+################## no need of dynamic programming ##########
+N=10**4
+res=[]
+def sieve(n):
+    prime=[True]*(n+1)
+    p=2
+    lis=[]
+    while(p*p<=n):
+        if(prime[p]):
+            for i in range(p*p,n+1,p):
+                prime[i]=False
+        p+=1
+    for i in range(2,len(prime)):
+        if(prime[i]):
+            lis.append(i)
+    return lis,len(lis)
+#visited=[[0 for i in range(N)] for j in range(N)]
+def ways(pos,S,n):
+    if(pos==n): return int(S==0)
+    ans=0
+    times=0
+    while(times*res[pos]<=S):
+        ans+=ways(pos+1,S-times*res[pos],n)
+        times+=1
+    return ans
+x=10
+while(True):
+    res,n=sieve(x)
+    if(ways(0,x,n)>5000):
+        print(x)
+        break
+    x+=1
+    
 
-import os
-import sys
-
-#
-# Complete the restaurant function below.
-#
-def restaurant(l, b):
-            if(l==b):
-                        return(1)
-            temp=l*b
-            size=[ ]
-            t1=1*1
-            for i in range(2,l):
-                        for j in range(2,b):
-                                    if(i==j and temp%(i*j)==0):
-                                                t2=i*j
-                                                if(t2>t1 and temp%t2==0):
-                                                            t1=t2
-                                                            size.append(temp/(i*j)
-                        print(size)
-            return(max(size))
-
-t = int(input())
-
-    for t_itr in range(t):
-        lb = input().split()
-
-        l = int(lb[0])
-
-        b = int(lb[1])
-
-        result = restaurant(l, b)
